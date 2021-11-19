@@ -1,0 +1,90 @@
+.cashier {
+  display: block;
+  width: 80%;
+  margin: auto;
+}
+
+.cashier-table {
+  height: calc(33px * 11 + 44px);
+}
+
+.cashier-table-content {
+  height: calc(33px * 10);
+  overflow-y: auto;
+}
+
+.list-header,
+.list-total .total-header {
+  background-color: #2b2b2b;
+  color: #f8f8f8;
+}
+
+.list-item:nth-child(2n) {
+  background-color: #f7f7f7;
+  height: 33px;
+}
+
+.list-item:nth-child(2n + 1) {
+  background-color: #e4e4e4;
+  height: 33px;
+}
+
+.list-item,
+.list-header,
+.list-total {
+  display: flex;
+}
+
+.list-item *,
+.list-header *,
+.list-total * {
+  padding: 0.25em;
+}
+
+.list-header,
+.total-header {
+  font-weight: 600;
+}
+
+.list-item .qty,
+.list-header .qty {
+  width: 10%;
+}
+
+.list-item .name,
+.list-header .name {
+  width: 40%;
+}
+
+.list-total .total-header {
+  width: 75%;
+  text-align: center;
+  padding: 0.5em 0.25em;
+}
+
+.list-total .total-content {
+  padding: 0.5em 0.25em;
+}
+
+.list-item .price,
+.list-item .subtotal,
+.list-header .price,
+.list-header .subtotal,
+.list-total .total-content {
+  width: 25%;
+  text-align: right;
+}
+
+.btn-bayar {
+  width: max(200px, 20%);
+  padding: 0.5em;
+  text-align: center;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .cashier {
+    width: 90%;
+  }
+}
