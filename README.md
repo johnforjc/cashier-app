@@ -1,6 +1,6 @@
 # SImple Cashier Application With ReactJS
 
-This project just a mock up from cashier web based application. I am using ReactJS for the front end. The product are static that you can found the list of product on [https://github.com/johnforjc/cashier-app/blob/master/src/data/product.js](product.js) file.
+This project just a mock up from cashier web based application. I am using ReactJS for the front end. The product are static that you can found the list of product on [https://github.com/johnforjc/cashier-app/blob/master/src/data/product.js](https://github.com/johnforjc/cashier-app/blob/master/src/data/product.js) file.
 
 ## What this application do?
 
