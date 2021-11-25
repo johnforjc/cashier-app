@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import product from "../../data/product";
 import "./Cashier.css";
@@ -8,6 +8,37 @@ const Cashier = () => {
   const [inputValue, setinputValue] = useState("");
   const [suggestProduct, setSuggestProduct] = useState([]);
   const [productSelected, setProductSelected] = useState([]);
+
+  const [productUpt, setProductUpt] = useState({});
+  const [showForm, setShowForm] = useState(false);
+  const [updateValue, setUpdateValue] = useState(0);
+  const [totalHarga, setTotalHarga] = useState(0);
+
+  const updateTotalHarga = () => {
+    let total = 0;
+
+    productSelected.forEach((item) => (total += item.quantity * item.price));
+
+    setTotalHarga(total);
+  };
+
+  useEffect(() => {
+    updateTotalHarga();
+  }, [productSelected]);
+
+  const updateProduct = (event) => {
+    event.preventDefault();
+
+    setShowForm(false);
+
+    setProductSelected(productSelected.filter((item) => (item.id === productUpt.id ? (item.quantity = updateValue) : item)));
+  };
+
+  const updateValueHandler = (event) => {
+    setUpdateValue(event.target.value);
+
+    console.log(event.target.value);
+  };
 
   const getSuggestItem = (inputText) => {
     if (inputText.length > 0) {
@@ -41,7 +72,10 @@ const Cashier = () => {
 
     if (searchItem.length === 1) {
       const quantity = 1;
-      const newItem = { quantity, ...searchItem[0] };
+      const id = productSelected.length + 1;
+      const newItem = { quantity, ...searchItem[0], id };
+
+      console.log(newItem);
 
       setProductSelected([...productSelected, newItem]);
     } else {
@@ -58,6 +92,14 @@ const Cashier = () => {
       let a = item.getElementsByClassName("name")[0];
       console.log(a.innerText);
     });
+  };
+
+  const updateFormHandler = (id) => {
+    const productUpdate = productSelected.filter((item) => item.id === id);
+
+    setProductUpt(productUpdate[0]);
+    setUpdateValue(productUpdate[0].quantity);
+    setShowForm(true);
   };
 
   return (
@@ -79,6 +121,15 @@ const Cashier = () => {
           )}
         </form>
       </div>
+
+      {showForm && (
+        <div className="form-udpate-quantity">
+          <form action="" onSubmit={updateProduct}>
+            <input type="number" value={updateValue} onChange={updateValueHandler} />
+            <input type="submit" value="Change" />
+          </form>
+        </div>
+      )}
       <div className="cashier-table">
         <div className="list-header">
           <div className="name">Product</div>
@@ -88,10 +139,12 @@ const Cashier = () => {
         </div>
 
         <div className="cashier-table-content">
-          {productSelected.map((item, index) => (
-            <div className="list-item" key={index}>
+          {productSelected.map((item) => (
+            <div className="list-item" key={item.id}>
               <div className="name">{item.name}</div>
-              <div className="qty">{item.quantity}</div>
+              <div className="qty" onClick={() => updateFormHandler(item.id)}>
+                {item.quantity}
+              </div>
               <div className="price">{item.price}</div>
               <div className="subtotal">{item.quantity * item.price}</div>
             </div>
@@ -100,7 +153,7 @@ const Cashier = () => {
 
         <div className="list-total">
           <div className="total-header">Total</div>
-          <div className="total-content">16500</div>
+          <div className="total-content">{totalHarga}</div>
         </div>
       </div>
 
