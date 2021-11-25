@@ -14,6 +14,17 @@ const Cashier = () => {
   const [updateValue, setUpdateValue] = useState(0);
   const [totalHarga, setTotalHarga] = useState(0);
 
+  const resetAllValue = () => {
+    setinputValue("");
+    setSuggestProduct([]);
+    setProductSelected([]);
+
+    setProductUpt({});
+    setShowForm(false);
+    setUpdateValue(0);
+    setTotalHarga(0);
+  };
+
   const updateTotalHarga = () => {
     let total = 0;
 
@@ -86,10 +97,6 @@ const Cashier = () => {
   };
 
   const cetakList = () => {
-    let content = document.getElementById("cashier-table");
-    let list = content.querySelectorAll(".list-item");
-    let totalEntity = content.querySelectorAll(".list-total")[0];
-
     let printableArea = window.open("", "", "height=500, width=auto");
 
     printableArea.document.write("<html>");
@@ -102,18 +109,18 @@ const Cashier = () => {
       <th witdh="10ch">Subtotal</th>
     </tr>`);
 
-    list.forEach((item) => {
+    productSelected.forEach((item) => {
       printableArea.document.write(`<tr>
-        <td witdh="20ch">${item.getElementsByClassName("name")[0].innerText}</td>
-        <td witdh="4ch">${item.getElementsByClassName("qty")[0].innerText}</td>
-        <td witdh="10ch">${item.getElementsByClassName("price")[0].innerText}</td>
-        <td witdh="10ch">${item.getElementsByClassName("subtotal")[0].innerText}</td>
+        <td witdh="20ch">${item.name}</td>
+        <td witdh="4ch">${item.quantity}</td>
+        <td witdh="10ch">${item.price}</td>
+        <td witdh="10ch">${item.price * item.quantity}</td>
       </tr>`);
     });
 
     printableArea.document.write(`<tr>
-        <td witdh="34ch" colspan=3>${totalEntity.getElementsByClassName("total-header")[0].innerText}</td>
-        <td witdh="10ch">${totalEntity.getElementsByClassName("total-content")[0].innerText}</td>
+        <td witdh="34ch" colspan=3>Total</td>
+        <td witdh="10ch">${totalHarga}</td>
       </tr>`);
 
     printableArea.document.write("</table></body></html>");
@@ -121,6 +128,8 @@ const Cashier = () => {
     printableArea.print();
 
     printableArea.window.close();
+
+    resetAllValue();
   };
 
   const updateFormHandler = (id) => {
@@ -132,62 +141,65 @@ const Cashier = () => {
   };
 
   return (
-    <div className="cashier">
-      <div className="search-item">
-        <form action="" className="form-control" autoComplete="off" onSubmit={submitHandler}>
-          <div className="form-input">
-            <input type="text" placeholder="Search Item" id="item-name" onChange={inputChangeHandler} value={inputValue} autoComplete="off" />
-            <input type="submit" value="Submit" id="submit-btn" />
-          </div>
-          {suggestProduct.length > 0 && (
-            <div className="suggested-item">
-              {suggestProduct.map((item) => (
-                <div className="suggested-list" key={item.id} onClick={selectedValue}>
-                  {item.name}
-                </div>
-              ))}
+    <div className="container">
+      <div className="cashier">
+        <div className="search-item">
+          <form action="" className="form-control" autoComplete="off" onSubmit={submitHandler}>
+            <div className="form-input">
+              <input type="text" placeholder="Search Item" id="item-name" onChange={inputChangeHandler} value={inputValue} autoComplete="off" />
+              <input type="submit" value="Submit" id="submit-btn" />
             </div>
-          )}
-        </form>
-      </div>
-
-      {showForm && (
-        <div className="form-udpate-quantity">
-          <form action="" onSubmit={updateProduct}>
-            <input type="number" value={updateValue} onChange={updateValueHandler} />
-            <input type="submit" value="Change" />
+            {suggestProduct.length > 0 && (
+              <div className="suggested-item">
+                {suggestProduct.map((item) => (
+                  <div className="suggested-list" key={item.id} onClick={selectedValue}>
+                    {item.name}
+                  </div>
+                ))}
+              </div>
+            )}
           </form>
         </div>
-      )}
-      <div className="cashier-table" id="cashier-table">
-        <div className="list-header">
-          <div className="name">Product</div>
-          <div className="qty">Qty</div>
-          <div className="price">Price</div>
-          <div className="subtotal">Subtotal</div>
-        </div>
 
-        <div className="cashier-table-content">
-          {productSelected.map((item) => (
-            <div className="list-item" key={item.id}>
-              <div className="name">{item.name}</div>
-              <div className="qty" onClick={() => updateFormHandler(item.id)}>
-                {item.quantity}
+        {showForm && (
+          <div className="form-udpate-quantity">
+            <h4>Change Quantity</h4>
+            <form action="" onSubmit={updateProduct}>
+              <input type="number" value={updateValue} onChange={updateValueHandler} />
+              <input type="submit" value="Change" />
+            </form>
+          </div>
+        )}
+        <div className="cashier-table" id="cashier-table">
+          <div className="list-header">
+            <div className="name">Product</div>
+            <div className="qty">Qty</div>
+            <div className="price">Price</div>
+            <div className="subtotal">Subtotal</div>
+          </div>
+
+          <div className="cashier-table-content">
+            {productSelected.map((item) => (
+              <div className="list-item" key={item.id}>
+                <div className="name">{item.name}</div>
+                <div className="qty" onClick={() => updateFormHandler(item.id)}>
+                  {item.quantity}
+                </div>
+                <div className="price">{item.price}</div>
+                <div className="subtotal">{item.quantity * item.price}</div>
               </div>
-              <div className="price">{item.price}</div>
-              <div className="subtotal">{item.quantity * item.price}</div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <div className="list-total">
+            <div className="total-header">Total</div>
+            <div className="total-content">{totalHarga}</div>
+          </div>
         </div>
 
-        <div className="list-total">
-          <div className="total-header">Total</div>
-          <div className="total-content">{totalHarga}</div>
+        <div className="btn-bayar" onClick={cetakList}>
+          Cetak
         </div>
-      </div>
-
-      <div className="btn-bayar" onClick={cetakList}>
-        Cetak
       </div>
     </div>
   );

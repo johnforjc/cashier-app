@@ -10,4 +10,32 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  display: block;
+  margin: auto;
+  padding: 0 4em;
+}
+
+@media only screen and (max-width: 640px) {
+  .container {
+    padding: 0;
+  }
+}
+
+.flex-container {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
