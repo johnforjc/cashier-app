@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/cashier-app/static/css/main.21e0162a.chunk.css",
+    "main.js": "/cashier-app/static/js/main.b5ca29ce.chunk.js",
+    "main.js.map": "/cashier-app/static/js/main.b5ca29ce.chunk.js.map",
+    "runtime-main.js": "/cashier-app/static/js/runtime-main.565e77fb.js",
+    "runtime-main.js.map": "/cashier-app/static/js/runtime-main.565e77fb.js.map",
+    "static/js/2.76bd3f11.chunk.js": "/cashier-app/static/js/2.76bd3f11.chunk.js",
+    "static/js/2.76bd3f11.chunk.js.map": "/cashier-app/static/js/2.76bd3f11.chunk.js.map",
+    "static/js/3.01026582.chunk.js": "/cashier-app/static/js/3.01026582.chunk.js",
+    "static/js/3.01026582.chunk.js.map": "/cashier-app/static/js/3.01026582.chunk.js.map",
+    "index.html": "/cashier-app/index.html",
+    "static/css/main.21e0162a.chunk.css.map": "/cashier-app/static/css/main.21e0162a.chunk.css.map",
+    "static/js/2.76bd3f11.chunk.js.LICENSE.txt": "/cashier-app/static/js/2.76bd3f11.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.565e77fb.js",
+    "static/js/2.76bd3f11.chunk.js",
+    "static/css/main.21e0162a.chunk.css",
+    "static/js/main.b5ca29ce.chunk.js"
+  ]
+}
