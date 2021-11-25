@@ -12,4 +12,4 @@ You can try my mockup application on [](this link).
 
 ### Don't forget to come my site
 
-If you see this project, don't forget to visit [https://johnforjc.com](my portfolio).
+If you see this project, don't forget to visit [my portfolio](https://johnforjc.com).
