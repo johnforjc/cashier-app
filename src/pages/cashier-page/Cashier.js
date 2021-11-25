@@ -86,12 +86,39 @@ const Cashier = () => {
   };
 
   const cetakList = () => {
-    let list = document.querySelectorAll(".list-item");
+    let content = document.getElementById("cashier-table");
+    let list = content.querySelectorAll(".list-item");
+    let totalEntity = content.querySelectorAll(".list-total")[0];
+
+    let printableArea = window.open("", "", "height=500, width=auto");
+
+    printableArea.document.write("<html>");
+    printableArea.document.write("<body > <h1>Sundries Store </h1> <table>");
+
+    printableArea.document.write(`<tr>
+      <th witdh="20ch" text-align="left">Product</th>
+      <th witdh="4ch">Qty</th>
+      <th witdh="10ch">Price</th>
+      <th witdh="10ch">Subtotal</th>
+    </tr>`);
 
     list.forEach((item) => {
-      let a = item.getElementsByClassName("name")[0];
-      console.log(a.innerText);
+      printableArea.document.write(`<tr>
+        <td witdh="20ch">${item.getElementsByClassName("name")[0].innerText}</td>
+        <td witdh="4ch">${item.getElementsByClassName("qty")[0].innerText}</td>
+        <td witdh="10ch">${item.getElementsByClassName("price")[0].innerText}</td>
+        <td witdh="10ch">${item.getElementsByClassName("subtotal")[0].innerText}</td>
+      </tr>`);
     });
+
+    printableArea.document.write(`<tr>
+        <td witdh="34ch" colspan=3>${totalEntity.getElementsByClassName("total-header")[0].innerText}</td>
+        <td witdh="10ch">${totalEntity.getElementsByClassName("total-content")[0].innerText}</td>
+      </tr>`);
+
+    printableArea.document.write("</table></body></html>");
+    printableArea.document.close();
+    printableArea.print();
   };
 
   const updateFormHandler = (id) => {
@@ -130,7 +157,7 @@ const Cashier = () => {
           </form>
         </div>
       )}
-      <div className="cashier-table">
+      <div className="cashier-table" id="cashier-table">
         <div className="list-header">
           <div className="name">Product</div>
           <div className="qty">Qty</div>
