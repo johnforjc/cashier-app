@@ -119,6 +119,8 @@ const Cashier = () => {
     printableArea.document.write("</table></body></html>");
     printableArea.document.close();
     printableArea.print();
+
+    printableArea.window.close();
   };
 
   const updateFormHandler = (id) => {
